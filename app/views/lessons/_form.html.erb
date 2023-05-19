@@ -1,0 +1,86 @@
+<%= form_with(model: lesson, url: classroom_lessons_path(params[:classroom_id]), class: "contents") do |form| %>
+  <% if lesson.errors.any? %>
+    <div id="error_explanation" class="bg-red-50 text-red-500 px-3 py-2 font-medium rounded-lg mt-3">
+      <h2><%= pluralize(lesson.errors.count, "error") %> prohibited this lesson from being saved:</h2>
+
+      <ul>
+        <% lesson.errors.each do |error| %>
+          <li><%= error.full_message %></li>
+        <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="my-5">
+    <%= form.label :title %>
+    <%= form.text_field :title, class: "block shadow rounded-md border border-gray-200 outline-none px-3 py-2 mt-2 w-full" %>
+  </div>
+
+  <div class="my-5">
+    <%= form.label :description %>
+    <%= form.text_area :description, rows: 4, class: "block shadow rounded-md border border-gray-200 outline-none px-3 py-2 mt-2 w-full" %>
+  </div>
+
+  <div class="my-5">
+    <%= form.label :homework %>
+    <%= form.text_area :homework, class: "block shadow rounded-md border border-gray-200 outline-none px-3 py-2 mt-2 w-full" %>
+  </div>
+
+  <div class="my-5">
+    <%= form.label :classroom_id %>
+    <%= form.text_field :classroom_name, value: form.object.classroom.identification, disabled: true , class: "block shadow rounded-md border border-gray-200 outline-none px-3 py-2 mt-2 w-full" %>
+    <%= form.hidden_field :classroom_id %>
+  </div>
+
+  <div class="w-full">
+    <%= form.fields_for :student_lessons do |field| %>
+
+      <%= field.hidden_field :lesson_id %>
+      <%= field.hidden_field :student_id %>
+
+      <div class="my-5">
+        <%= field.label :student_id %>
+        <%= field.text_field :student_name, value: field.object.student.full_name, disabled: true , class: "block shadow rounded-md border border-gray-200 outline-none px-3 py-2 mt-2 w-full" %>
+      </div>
+      <div class="my-5">
+        <%= field.label :absent %>
+        <%= field.check_box :absent, class: "block shadow rounded-md border border-gray-200 outline-none px-3 py-2 mt-2" %>
+      </div>
+      <div class="my-5">
+        <%= field.label :abstract %>
+        <%= field.text_area :abstract, class: "block shadow rounded-md border border-gray-200 outline-none px-3 py-2 mt-2 w-full" %>
+      </div>
+
+      <div class="grid grid-cols-3">
+        <div class="my-5">
+          <%= field.label :RC %>
+          <%= field.number_field :RC, in: 1..5, step: 1, value: 1, class: "shadow rounded-md border border-gray-200 outline-none px-3 py-2 mt-2" %>
+        </div>
+        <div class="my-5">
+          <%= field.label :CP %>
+          <%= field.number_field :CP, in: 1..5, step: 1, value: 1, class: "shadow rounded-md border border-gray-200 outline-none px-3 py-2 mt-2" %>
+        </div>
+        <div class="my-5">
+          <%= field.label :AG %>
+          <%= field.number_field :AG, in: 1..5, step: 1, value: 1, class: "shadow rounded-md border border-gray-200 outline-none px-3 py-2 mt-2" %>
+        </div>
+        <div class="my-5">
+          <%= field.label :CM %>
+          <%= field.number_field :CM, in: 1..5, step: 1, value: 1, class: "shadow rounded-md border border-gray-200 outline-none px-3 py-2 mt-2" %>
+        </div>
+        <div class="my-5">
+          <%= field.label :AP %>
+          <%= field.number_field :AP, in: 1..5, step: 1, value: 1, class: "shadow rounded-md border border-gray-200 outline-none px-3 py-2 mt-2" %>
+        </div>
+        <div class="my-5">
+          <%= field.label :MV %>
+          <%= field.number_field :MV, in: 1..5, step: 1, value: 1, class: "shadow rounded-md border border-gray-200 outline-none px-3 py-2 mt-2" %>
+        </div>
+      </div>
+    <% end %>
+  </div>
+
+  <div class="inline">
+    <%= form.submit class: "rounded-lg py-3 px-5 bg-blue-600 text-white inline-block font-medium cursor-pointer" %>
+  </div>
+<% end %>

@@ -1,0 +1,27 @@
+<div id="<%= dom_id lesson %>">
+  <p class="my-5">
+    <strong class="block font-medium mb-1">Title:</strong>
+    <%= lesson.title %>
+  </p>
+
+  <p class="my-5">
+    <strong class="block font-medium mb-1">Description:</strong>
+    <%= lesson.description %>
+  </p>
+
+  <p class="my-5">
+    <strong class="block font-medium mb-1">Homework:</strong>
+    <%= lesson.homework %>
+  </p>
+
+  <p class="my-5">
+    <strong class="block font-medium mb-1">Classroom:</strong>
+    <%= lesson.classroom_id %>
+  </p>
+
+  <%# if action_name != "show" %>
+    <%= link_to "Show this lesson", classroom_lesson_path(@classroom, lesson), class: "rounded-lg py-3 px-5 bg-gray-100 font-medium" %>
+    <%= link_to 'Edit this lesson', edit_classroom_lesson_path(@classroom, lesson), class: "rounded-lg py-3 ml-2 px-5 bg-gray-100 font-medium" %>
+    <hr class="mt-6">
+  <%# end %>
+</div>
