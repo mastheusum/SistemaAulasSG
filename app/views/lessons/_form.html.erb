@@ -1,4 +1,13 @@
-<%= form_with(model: lesson, url: classroom_lessons_path(params[:classroom_id]), class: "contents") do |form| %>
+<%
+  url = ""
+  if action_name == "edit"
+    url = classroom_lesson_path(@classroom, lesson)
+  else
+    url = classroom_lessons_path(@classroom, lesson)
+  end
+%>
+<h1> <%= url %> </h1>
+<%= form_with(model: lesson, url: url, class: "contents") do |form| %>
   <% if lesson.errors.any? %>
     <div id="error_explanation" class="bg-red-50 text-red-500 px-3 py-2 font-medium rounded-lg mt-3">
       <h2><%= pluralize(lesson.errors.count, "error") %> prohibited this lesson from being saved:</h2>
@@ -27,6 +36,11 @@
   </div>
 
   <div class="my-5">
+    <%= form.label :homework_link %>
+    <%= form.text_field :homework_link, class: "block shadow rounded-md border border-gray-200 outline-none px-3 py-2 mt-2 w-full" %>
+  </div>
+
+  <div class="my-5">
     <%= form.label :classroom_id %>
     <%= form.text_field :classroom_name, value: form.object.classroom.identification, disabled: true , class: "block shadow rounded-md border border-gray-200 outline-none px-3 py-2 mt-2 w-full" %>
     <%= form.hidden_field :classroom_id %>
@@ -44,7 +58,7 @@
       </div>
       <div class="my-5">
         <%= field.label :absent %>
-        <%= field.check_box :absent, class: "block shadow rounded-md border border-gray-200 outline-none px-3 py-2 mt-2" %>
+        <%= field.check_box :absent, class: "w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 rounded focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 dark:focus:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600" %>
       </div>
       <div class="my-5">
         <%= field.label :abstract %>
@@ -54,27 +68,27 @@
       <div class="grid grid-cols-3">
         <div class="my-5">
           <%= field.label :RC %>
-          <%= field.number_field :RC, in: 1..5, step: 1, value: 1, class: "shadow rounded-md border border-gray-200 outline-none px-3 py-2 mt-2" %>
+          <%= field.number_field :RC, in: 1..5, step: 1, value: field.object.RC ? field.object.RC : 1 , class: "shadow rounded-md border border-gray-200 outline-none px-3 py-2 mt-2" %>
         </div>
         <div class="my-5">
           <%= field.label :CP %>
-          <%= field.number_field :CP, in: 1..5, step: 1, value: 1, class: "shadow rounded-md border border-gray-200 outline-none px-3 py-2 mt-2" %>
+          <%= field.number_field :CP, in: 1..5, step: 1, value: field.object.CP ? field.object.CP : 1 , class: "shadow rounded-md border border-gray-200 outline-none px-3 py-2 mt-2" %>
         </div>
         <div class="my-5">
           <%= field.label :AG %>
-          <%= field.number_field :AG, in: 1..5, step: 1, value: 1, class: "shadow rounded-md border border-gray-200 outline-none px-3 py-2 mt-2" %>
+          <%= field.number_field :AG, in: 1..5, step: 1, value: field.object.AG ? field.object.AG : 1 , class: "shadow rounded-md border border-gray-200 outline-none px-3 py-2 mt-2" %>
         </div>
         <div class="my-5">
           <%= field.label :CM %>
-          <%= field.number_field :CM, in: 1..5, step: 1, value: 1, class: "shadow rounded-md border border-gray-200 outline-none px-3 py-2 mt-2" %>
+          <%= field.number_field :CM, in: 1..5, step: 1, value: field.object.CM ? field.object.CM : 1 , class: "shadow rounded-md border border-gray-200 outline-none px-3 py-2 mt-2" %>
         </div>
         <div class="my-5">
           <%= field.label :AP %>
-          <%= field.number_field :AP, in: 1..5, step: 1, value: 1, class: "shadow rounded-md border border-gray-200 outline-none px-3 py-2 mt-2" %>
+          <%= field.number_field :AP, in: 1..5, step: 1, value: field.object.AP ? field.object.AP : 1 , class: "shadow rounded-md border border-gray-200 outline-none px-3 py-2 mt-2" %>
         </div>
         <div class="my-5">
           <%= field.label :MV %>
-          <%= field.number_field :MV, in: 1..5, step: 1, value: 1, class: "shadow rounded-md border border-gray-200 outline-none px-3 py-2 mt-2" %>
+          <%= field.number_field :MV, in: 1..5, step: 1, value: field.object.MV ? field.object.MV : 1 , class: "shadow rounded-md border border-gray-200 outline-none px-3 py-2 mt-2" %>
         </div>
       </div>
     <% end %>

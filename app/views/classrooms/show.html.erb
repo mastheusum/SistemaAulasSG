@@ -8,9 +8,11 @@
 
     <%= render @classroom %>
 
+    <% @classroom.lessons.each do |lesson| %>
     <div id="lessons" class="min-w-full grid grid-cols-3 gap-8">
-      <%= render @classroom.lessons %>
+      <%= render partial: "lesson", locals: { classroon: @classroom, lesson: lesson }  %>
     </div>
+    <% end %>
 
     <div class="block">
       <%= link_to 'Edit this classroom', edit_classroom_path(@classroom), class: "mt-2 rounded-lg py-3 px-5 bg-gray-100 inline-block font-medium" %>

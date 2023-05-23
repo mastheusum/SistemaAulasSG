@@ -74,11 +74,11 @@ class LessonsController < ApplicationController
     # Only allow a list of trusted parameters through.
     def lesson_params
       params.require(:lesson).permit(
-        :title, :description, :homework, :classroom_id,
+        :title, :description, :homework, :homework_link, :classroom_id,
         student_lessons_attributes: [ 
           :lesson_id, :student_id, 
           :abstract, :absent,
-          :RC, :CP, :AG, :CM, :AP, :MV
+          :RC, :CP, :AG, :CM, :AP, :MV, :id
          ]
       )
     end
